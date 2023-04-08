@@ -1,0 +1,63 @@
+POST http://localhost:5000/api/users/register HTTP/1.1
+content-type: application/json
+
+{
+  "email": "yoan@abv.bg",
+  "password": "asdasd",
+  "firstName": "Yoan",
+  "lastName": "Ivanov"
+}
+
+###
+
+POST http://localhost:5000/api/users/login HTTP/1.1
+content-type: application/json
+
+{
+  "email": "yoan@abv.bg",
+  "password": "asdasd"
+}
+
+###
+
+GET http://localhost:5000/api/recipes HTTP/1.1
+content-type: application/json
+
+###
+
+POST http://localhost:5000/api/recipes HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOTkwOTRkMmQyZjE4ODU3NGU0ODVkNSIsImlhdCI6MTY3MDk3ODA2NSwiZXhwIjoxNjcxMDY0NDY1fQ.X4mLtxYofjx1v9jWvHvY2i4XaZPYxUtdanzAnDML8wE
+
+{
+  "title": "Pumpkin soup",
+  "category": "Soups",
+  "image": "https://img.delicious.com.au/LIBwreVE/del/2018/06/no-chop-pumpkin-soup-81782-2.jpg",
+  "ingredients": [
+    "pumpkin",
+    "cream",
+    "spices"
+  ],
+  "description": "Mix everything together and serve it with cream",
+  "time": 60,
+  "likes": 0
+}
+###
+
+POST http://localhost:3000/recipes HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InlvYW5AYWJ2LmJnIiwiaWF0IjoxNjcwODc1NTYwLCJleHAiOjE2NzA4NzkxNjAsInN1YiI6IjEifQ.740RMzVRJGUxH6nQG172shS_wQ9rC1JuxIVmyahEJsk
+
+{
+  "name": "Chicken with rice 2",
+  "image": "https://img.buzzfeed.com/thumbnailer-prod-us-east-1/video-api/assets/13385.jpg",
+  "ingredients": [
+    "chicken",
+    "rice",
+    "oil"
+  ],
+  "description": "Put the chicke and the rice together in the oven",
+  "level": "beginner",
+  "time": "30 minutes",
+  "likes": 0,
+}
