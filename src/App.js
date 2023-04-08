@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Spinner from './components/Spinner'
 import { useQuery } from 'react-query'
 // import { getUser } from './services/usersService'
+import "./App.css"
 import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
 const Home = lazy(() => import('./pages/Home'))
