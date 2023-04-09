@@ -11,16 +11,16 @@ footer {
   }
   
   .nav-link {
-    color: var(--text-color);
+    color: var(--text-color) !important;
     padding: 8px;
   }
   
   .nav-link:hover,
   .nav-link:focus {
-    color: var(--primary);
+    color: var(--primary) !important;
   }
   
   .nav-link.active {
     font-weight: bold;
-    color: var(--primary);
+    color: var(--primary) !important;
   }  
