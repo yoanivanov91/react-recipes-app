@@ -212,9 +212,3 @@ body {
 .padding-fix {
     padding-bottom: 1px;
 }
-
-.page-container {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}

@@ -2,8 +2,7 @@ import { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Spinner from './components/Spinner'
 import { useQuery } from 'react-query'
-// import { getUser } from './services/usersService'
-import "./App.css"
+import { getUser } from './services/authService'
 import ProtectedRoute from './components/ProtectedRoute'
 import Layout from './components/Layout'
 const Home = lazy(() => import('./pages/Home'))
@@ -19,13 +18,11 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 
 
 function App() {
-  // const { data: user } = useQuery('user', getUser, {
-  //   refetchOnWindowFocus: false,
-  //   suspense: true,
-  //   // staleTime: 60000,
-  //   enabled: !!window.localStorage.getItem(import.meta.env.VITE_TOKEN)
-  // });
-  const user = null;
+  const { data: user } = useQuery('user', getUser, {
+    refetchOnWindowFocus: false,
+    suspense: true,
+    enabled: !!window.localStorage.getItem("token")
+  });
   
   return (
     <>

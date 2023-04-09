@@ -64,7 +64,12 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const getMe = asyncHandler(async (req, res) => {
   const user = await User.findOne({_id: req.user._id}).collation({locale: "en", strength: 2})
-  res.status(200).json(user);
+  res.status(200).json({
+    _id: user._id,
+    email: user.email,
+    firstName: user.firstName,
+    lastName: user.lastName
+  });
 });
 
 
