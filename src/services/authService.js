@@ -26,8 +26,9 @@ export const login = async (email, password) => {
     return response.data;
 }
 
-export const register = async (email, password) => {
-    const response = await users.post('/register', {email, password}, {
+export const register = async (data) => {
+    const {email, password, firstName, lastName} = data;
+    const response = await users.post('/register', {email, password, firstName, lastName}, {
         headers: {
             'Content-Type': 'application/json'
         }

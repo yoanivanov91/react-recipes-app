@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import loginImg from '../assets/images/login.jpg'
 import loginImg2 from '../assets/images/login2.jpg'
 import "../assets/css/Login.css"
@@ -8,10 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { login } from '../services/authService';
 import { useQueryClient } from 'react-query';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const schema = yup.object({
-    email: yup.string().email('Please enter a valid email').required('Please enter your email'),
+    email: yup.string().required('Please enter your email').email('Please enter a valid email'),
     password: yup.string().required('Please enter your password')
 }).required();
 
@@ -32,7 +31,6 @@ function Login() {
             toast.success(`Welcome, ${userData?.firstName}`);
         } catch(err) {
             toast.error(err.response.data.message);
-            console.log(err.response.data.message);
             reset({password: ''});
         }
     }
@@ -81,7 +79,7 @@ function Login() {
                             </button>
                         </form>
                         <p className="mb-0 mt-3">
-                        Don't have an account? You can register <Link className="simple-link" to="/auth/register">here</Link>
+                        Don't have an account? You can register <Link className="simple-link" to="/auth/register" state={{ from: from }}>here</Link>
                         </p>
                     </div>
                 </div>
