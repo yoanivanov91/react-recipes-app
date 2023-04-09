@@ -1,6 +1,6 @@
 import registerImg from '../assets/images/register.jpg'
 import registerImg2 from '../assets/images/register2.jpg'
-import '../assets/css/Register.css'
+import styles from '../assets/css/Register.module.css'
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -47,9 +47,9 @@ function Register() {
                 />
             </div>
             <div className="overflow-hidden padding-fix">
-                <div className="register-container animate__animated animate__slideInUp animate__fast">
-                    <img src={registerImg2} alt="Register" className="register-img" />
-                    <div className="form-container">
+                <div className={styles.registerContainer + ' animate__animated animate__slideInUp animate__fast'}>
+                    <img src={registerImg2} alt="Register" className={styles.registerImg} />
+                    <div className={styles.formContainer}>
                         <h1 className="headline">Register</h1>
                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
                             <div className="row mb-3">

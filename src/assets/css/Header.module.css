@@ -1,0 +1,30 @@
+.navbarBrand {
+  font-family: "Nerko One", cursive;
+  color: var(--primary);
+  font-size: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: var(--text-color) !important;
+}
+
+.navLink:hover,
+.navLink:focus {
+  color: var(--primary) !important;
+}
+
+.navbarToggler {
+  color: var(--text-color) !important;
+  font-size: 1rem;
+  border: 1px solid var(--primary25);
+}
+
+.navbarToggler:focus {
+  box-shadow: none;
+}
+
+.navbarTogglerIcon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgb%28108, 158, 79%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

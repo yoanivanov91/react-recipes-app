@@ -210,5 +210,10 @@ body {
 }
 
 .padding-fix {
-    padding-bottom: 1px;
+  padding-bottom: 1px;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: var(--primary) !important;
 }

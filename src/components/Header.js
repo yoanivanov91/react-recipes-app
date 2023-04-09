@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import "../assets/css/Header.css";
+import styles from "../assets/css/Header.module.css";
 import { useQueryClient } from "react-query";
 import { logout } from "../services/authService";
 import { toast } from 'react-toastify';
@@ -20,36 +20,36 @@ function Header() {
         <header>
             <nav className="navbar navbar-expand-lg">
                 <div className="w-100 d-flex justify-content-between flex-wrap">
-                    <Link className="navbar-brand" to="/">Recipes</Link>
+                    <Link className={styles.navbarBrand + ' navbar-brand'} to="/">Recipes</Link>
                     <button
-                        className="navbar-toggler"
+                        className={styles.navbarToggler + ' navbar-toggler'}
                         data-bs-toggle="collapse"
                         data-bs-target="#navbarContent"
                         aria-controls="navbarContent"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <span className="navbar-toggler-icon"></span>
+                        <span className={styles.navbarTogglerIcon + ' navbar-toggler-icon'}></span>
                     </button>
                     <div className="collapse navbar-collapse flex-grow-0" id="navbarContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/" end>Home</NavLink>
+                                <NavLink className={styles.navLink + ' nav-link'} to="/" end>Home</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/recipes" end>Recipes</NavLink>
+                                <NavLink className={styles.navLink + ' nav-link'} to="/recipes" end>Recipes</NavLink>
                             </li>
                             {!user && 
                             <><li className="nav-item">
-                                <NavLink className="nav-link" to="/auth/login" end>Login</NavLink>
+                                <NavLink className={styles.navLink + ' nav-link'} to="/auth/login" end>Login</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink className="nav-link" to="/auth/register" end>Register</NavLink>
+                                <NavLink className={styles.navLink + ' nav-link'} to="/auth/register" end>Register</NavLink>
                             </li></>
                             }
                             {user && 
                             <><li className="nav-item">
-                                <NavLink className="nav-link" to="/recipes/add" end>Add recipe</NavLink>
+                                <NavLink className={styles.navLink + ' nav-link'} to="/recipes/add" end>Add recipe</NavLink>
                             </li>
                             <li className="nav-item dropdown">
                                 <button

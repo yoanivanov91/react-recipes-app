@@ -1,9 +1,9 @@
-.page-container {
+.pageContainer {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
-.footer-container {
+.footerContainer {
     margin-top: auto;
 }

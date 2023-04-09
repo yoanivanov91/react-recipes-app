@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom"
+import styles from "../assets/css/RecipeCard.module.css"
 
 function RecipeCard({recipe}) {
     return (
-        <div className="card shadow-sm">
+        <div className={styles.card + ' card shadow-sm'}>
             <img src={recipe.image} className="card-img-top" alt={recipe.title} />
             <div className="card-body">
                 <span className="badge badge-icon mb-3">{recipe.category}</span>

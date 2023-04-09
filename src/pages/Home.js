@@ -1,5 +1,5 @@
 import homeImg from "../assets/images/home.jpg"
-import "../assets/css/Home.css"
+import styles from "../assets/css/Home.module.css"
 import { useQuery, useQueryClient } from 'react-query'
 import { getRecentAndPopularAndLiked } from "../services/recipesService";
 import RecipeCard from "../components/RecipeCard";
@@ -25,7 +25,7 @@ function Home() {
             {isLoading && <Spinner />}
             {isError && <Error />}
             {isSuccess && <>
-                <div className="home-container animate__animated animate__slideInUp animate__fast">
+                <div className={styles.homeContainer + ' animate__animated animate__slideInUp animate__fast'}>
                     
                     <div>
                         <div className="d-flex justify-content-between align-items-center mb-3">
@@ -34,8 +34,8 @@ function Home() {
                         </div>
                         
                         {recipes.recent?.length > 0 &&
-                        <div className="cards">
-                            {recipes.recent.map(recipe => <div key={recipe._id} className="card-container">
+                        <div className={styles.cards}>
+                            {recipes.recent.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe} />
                             </div>)}
                         </div>
@@ -53,8 +53,8 @@ function Home() {
                         </div>
 
                         {recipes.popular?.length > 0 &&
-                        <div className="cards">
-                            {recipes.popular.map(recipe => <div key={recipe._id} className="card-container">
+                        <div className={styles.cards}>
+                            {recipes.popular.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe} />
                             </div>)}
                         </div>
@@ -72,8 +72,8 @@ function Home() {
                         </div>
 
                         {recipes.liked?.length > 0 &&
-                        <div className="cards">
-                            {recipes.liked.map(recipe => <div key={recipe._id} className="card-container">
+                        <div className={styles.cards}>
+                            {recipes.liked.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe} />
                             </div>)}
                         </div>

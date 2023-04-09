@@ -1,6 +1,6 @@
 import loginImg from '../assets/images/login.jpg'
 import loginImg2 from '../assets/images/login2.jpg'
-import "../assets/css/Login.css"
+import styles from "../assets/css/Login.module.css"
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,9 +42,9 @@ function Login() {
                 <img src={loginImg} alt="Login" width="100%" height="100%" />
             </div>
             <div className="overflow-hidden padding-fix">
-                <div className="login-container animate__animated animate__slideInUp animate__fast">
-                    <img src={loginImg2} alt="Login" className="login-img" />
-                    <div className="form-container">
+                <div className={styles.loginContainer + ' animate__animated animate__slideInUp animate__fast'}>
+                    <img src={loginImg2} alt="Login" className={styles.loginImg} />
+                    <div className={styles.formContainer}>
                         <h1 className="headline">Login</h1>
                         <form onSubmit={handleSubmit(onSubmit)} noValidate>
                         <div className="mb-3">
