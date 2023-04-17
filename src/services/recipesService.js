@@ -46,8 +46,8 @@ export const dislikeRecipe = async (recipeId) => {
     }
 }
 
-export const getRecipe = async (slug) => {
-    const response = await recipes.get(`/${slug}`);
+export const getRecipe = async (data) => {
+    const response = await recipes.get(`/${data.queryKey[1]}`);
     return response.data;
 }
 

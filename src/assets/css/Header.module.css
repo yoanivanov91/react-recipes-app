@@ -6,6 +6,10 @@
   padding: 0;
 }
 
+.navbarBrand:hover {
+  color: var(--primary);
+}
+
 .navLink {
   color: var(--text-color) !important;
 }

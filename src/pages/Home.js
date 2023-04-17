@@ -74,7 +74,7 @@ function Home() {
                         {recipes.liked?.length > 0 &&
                         <div className={styles.cards}>
                             {recipes.liked.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
-                                <RecipeCard recipe={recipe} />
+                                <RecipeCard recipe={recipe.recipeId} />
                             </div>)}
                         </div>
                         }

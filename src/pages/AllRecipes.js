@@ -19,7 +19,6 @@ function AllRecipes() {
     useEffect(() => {
         if(isSuccess && foundRecipes.length === 0) {
             setFoundRecipes(recipes);
-            console.log(recipes);
         }
     }, [isSuccess])
 

@@ -7,6 +7,12 @@ const users = axios.create({
     }
 })
 
+users.interceptors.request.use(function (config) {
+    const token = window.localStorage.getItem('token');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+});
+
 export const getUser = async () => {
     try {
         const response = await users.get('/me');
