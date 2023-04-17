@@ -52,28 +52,16 @@ export const getRecipe = async (data) => {
 }
 
 export const addRecipe = async (recipe) => {
-    try {
-        const response = await recipes.post('/', recipe);
-        return response.data;
-    } catch(err) {
-        return err;
-    }
+    const response = await recipes.post('/', recipe);
+    return response.data;
 }
 
 export const editRecipe = async (recipeId, recipe) => {
-    try {
-        const response = await recipes.put(`/${recipeId}`, recipe);
-        return response.data;
-    } catch(err) {
-        return err;
-    }
+    const response = await recipes.put(`/${recipeId}`, recipe);
+    return response.data;
 }
 
 export const deleteRecipe = async (recipeId) => {
-    try {
-        const response = await recipes.delete(`/${recipeId}`);
-        return response.data;
-    } catch(err) {
-        return err;
-    }
+    const response = await recipes.delete(`/${recipeId}`);
+    return response.data;
 }

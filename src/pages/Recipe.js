@@ -1,16 +1,17 @@
 import styles from "../assets/css/Recipe.module.css";
-import { useQuery, useQueryClient } from "react-query";
-import { getRecipe } from "../services/recipesService";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { deleteRecipe, getRecipe } from "../services/recipesService";
 import Spinner from "../components/Spinner";
 import Error from "../components/Error";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import { format } from "date-fns";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function Recipe() {
-    const [areIngredientsOpen, setAreIngredientsOpen] = useState(false);
-    const [isHowToOpen, setIsHowToOpen] = useState(false);
+  const [areIngredientsOpen, setAreIngredientsOpen] = useState(false);
+  const [isHowToOpen, setIsHowToOpen] = useState(false);
   const queryClient = useQueryClient();
   const user = queryClient.getQueryData("user");
   const { slug } = useParams();
@@ -55,6 +56,22 @@ function Recipe() {
         </>
       );
     }
+  };
+
+  const mutation = useMutation(deleteRecipe, {
+    onSuccess: () => {
+      queryClient.invalidateQueries("allRecipes");
+      queryClient.invalidateQueries("recentAndPopularAndLikedRecipes");
+      navigate("/recipes", { replace: true });
+      toast.success(`Recipe deleted successfully`);
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const handleDelete = () => {
+    mutation.mutate(data.recipe._id);
   };
 
   return (
@@ -111,7 +128,12 @@ function Recipe() {
                   onClick={() => setAreIngredientsOpen(!areIngredientsOpen)}
                 >
                   Ingredients
-                  <i className={(areIngredientsOpen ? 'bi-caret-up-fill' : 'bi-caret-down-fill') + ' bi icon-button-size icon-button-color'}></i>
+                  <i
+                    className={
+                      (areIngredientsOpen ? "bi-caret-up-fill" : "bi-caret-down-fill") +
+                      " bi icon-button-size icon-button-color"
+                    }
+                  ></i>
                 </h1>
                 <ul className="m-0 ps-3 collapse" id="ingredients">
                   {data.recipe.ingredients.map((ingredient, index) => (
@@ -128,7 +150,12 @@ function Recipe() {
                   onClick={() => setIsHowToOpen(!isHowToOpen)}
                 >
                   How to prepare
-                  <i className={(isHowToOpen ? 'bi-caret-up-fill' : 'bi-caret-down-fill') + ' bi icon-button-size icon-button-color'}></i>
+                  <i
+                    className={
+                      (isHowToOpen ? "bi-caret-up-fill" : "bi-caret-down-fill") +
+                      " bi icon-button-size icon-button-color"
+                    }
+                  ></i>
                 </h1>
                 <p className="m-0 collapse" id="howto">
                   {data.recipe.description}
@@ -187,7 +214,7 @@ function Recipe() {
                   <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                   </button>
-                  <button type="button" className="btn my-secondary-btn" data-bs-dismiss="modal">
+                  <button type="button" className="btn my-secondary-btn" data-bs-dismiss="modal" onClick={handleDelete}>
                     Delete
                   </button>
                 </div>
