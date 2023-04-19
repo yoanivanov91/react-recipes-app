@@ -1,0 +1,35 @@
+.myRecipesContainer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--section-gap);
+}
+
+.recipeImg {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.maxContent { 
+    width: max-content;
+    white-space: nowrap;
+}
+
+table th {
+    color: var(--secondary);
+}
+
+table tr {
+    transition: background-color 0.15s ease-in-out;
+}
+
+table tr:hover {
+    background-color: var(--bs-light);
+}
+
+.searchInput {
+    appearance: none;
+    border: none;
+    border-bottom: 1px solid var(--primary);
+    outline: 0;
+}

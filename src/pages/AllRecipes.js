@@ -15,34 +15,69 @@ function AllRecipes() {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [foundRecipes, setFoundRecipes] = useState([]);
+    const [show, setShow] = useState("recent");
 
     useEffect(() => {
-        if(isSuccess && foundRecipes.length === 0) {
+        if(isSuccess) {
             setFoundRecipes(recipes);
         }
-    }, [isSuccess])
+    }, [recipes])
 
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
-        if(e.target.value.length < 3) {
+        if (e.target.value.length < 3) {
+            if(show === 'recent') {
+                setFoundRecipes(recipes);
+            } else {
+                const popular = [...recipes].sort((a, b) => b.likes - a.likes);
+                setFoundRecipes(popular);
+            }
+        } else {
+          const found = recipes.filter(
+            (recipe) =>
+              recipe.title.toLowerCase().includes(e.target.value.toLowerCase()) ||
+              recipe.category.toLowerCase().includes(e.target.value.toLowerCase())
+          );
+          setFoundRecipes(found);
+        }
+      };
+    
+      const handleShow = (e) => {
+        if(e.target.value === 'recent') {
             setFoundRecipes(recipes);
         } else {
-            const found = recipes.filter(recipe => recipe.title.toLowerCase().includes(e.target.value.toLowerCase()) || recipe.category.toLowerCase().includes(e.target.value.toLowerCase()));
-            setFoundRecipes(found);
-        }
-    }
-
-    const handleShow = (e) => {
-        if(e.target.value === 'popular') {
             const popular = [...recipes].sort((a, b) => b.likes - a.likes);
             setFoundRecipes(popular);
-            setSearchTerm('')
-        } else {
-            const recent = [...recipes];
-            setFoundRecipes(recent);
-            setSearchTerm('')
         }
-    }
+        setShow(e.target.value);
+        setSearchTerm("");
+      };
+      
+    // const handleSearch = (e) => {
+    //     setSearchTerm(e.target.value);
+    //     if(e.target.value.length < 3) {
+    //         setFoundRecipes(recipes);
+    //     } else {
+    //         const found = recipes.filter(recipe => recipe.title.toLowerCase().includes(e.target.value.toLowerCase()) || recipe.category.toLowerCase().includes(e.target.value.toLowerCase()));
+    //         setFoundRecipes(found);
+    //     }
+    // }
+
+    // const handleShow = (e) => {
+    //     if(e.target.value === 'popular') {
+    //         const popular = [...recipes].sort((a, b) => b.likes - a.likes);
+    //         setFoundRecipes(popular);
+    //         setSearchTerm('')
+    //     } else {
+    //         const recent = [...recipes];
+    //         setFoundRecipes(recent);
+    //         setSearchTerm('')
+    //     }
+    // }
+
+    useEffect(() => {
+        document.title = "Recipes: All recipes";
+      }, []);
 
     return (
         <>

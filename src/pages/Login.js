@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { login } from '../services/authService';
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const schema = yup.object({
     email: yup.string().required('Please enter your email').email('Please enter a valid email'),
@@ -34,7 +35,10 @@ function Login() {
             reset({password: ''});
         }
     }
-    
+
+    useEffect(() => {
+        document.title = "Recipes: Login";
+      }, []);
 
     return (
         <>

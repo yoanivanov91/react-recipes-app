@@ -10,7 +10,6 @@ const AllRecipes = lazy(() => import('./pages/AllRecipes'))
 const Recipe = lazy(() => import('./pages/Recipe'))
 const AddRecipe = lazy(() => import('./pages/AddRecipe'))
 const EditRecipe = lazy(() => import('./pages/EditRecipe'))
-const Profile = lazy(() => import('./pages/Profile'))
 const MyRecipes = lazy(() => import('./pages/MyRecipes'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
@@ -37,8 +36,6 @@ function App() {
               <Route path="recipes/add" element={<AddRecipe />} />
               <Route path="recipes/edit/:slug" element={<EditRecipe />} />
               <Route path="my-recipes" element={<MyRecipes />} />
-              <Route path="profile" element={<Profile />} />
-
             </Route>
             <Route path="auth/login" element={user ? <Navigate replace to={'/'} /> : <Login />} />
             <Route path="auth/register" element={user ? <Navigate replace to={'/'} /> : <Register />} />

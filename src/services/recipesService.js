@@ -29,25 +29,17 @@ export const getRecentAndPopularAndLiked = async () => {
 }
 
 export const likeRecipe = async (recipeId) => {
-    try {
-        const response = await recipes.post('/like', {recipeId});
-        return response.data;
-    } catch(err) {
-        return err;
-    }
+    const response = await recipes.post('/like', {recipeId});
+    return response.data;
 }
 
 export const dislikeRecipe = async (recipeId) => {
-    try {
-        const response = await recipes.post('/dislike', {recipeId});
-        return response.data;
-    } catch(err) {
-        return err;
-    }
+    const response = await recipes.post('/dislike', {recipeId});
+    return response.data;
 }
 
-export const getRecipe = async (data) => {
-    const response = await recipes.get(`/${data.queryKey[1]}`);
+export const getRecipe = async (slug) => {
+    const response = await recipes.get(`/${slug}`);
     return response.data;
 }
 
@@ -56,8 +48,8 @@ export const addRecipe = async (recipe) => {
     return response.data;
 }
 
-export const editRecipe = async (recipeId, recipe) => {
-    const response = await recipes.put(`/${recipeId}`, recipe);
+export const editRecipe = async (data) => {
+    const response = await recipes.put(`/${data.recipeId}`, data.recipe);
     return response.data;
 }
 

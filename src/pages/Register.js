@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { register as registerUser } from '../services/authService';
 import { useQueryClient } from 'react-query';
 import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const schema = yup.object({
     email: yup.string().required('Please enter your email').email('Please enter a valid email'),
@@ -29,12 +30,16 @@ function Register() {
             queryClient.setQueryData('user', userData);
             reset();
             navigate('/', { replace: true});
-            toast.success(`Welcome, ${userData?.firstName}`);
+            toast.success(`Welcome, ${userData.firstName}`);
         } catch(err) {
             toast.error(err.response.data.message);
             reset({password: '', confirmPassword: ''});
         }
     }
+
+    useEffect(() => {
+        document.title = "Recipes: Register";
+      }, []);
 
     return (
         <>

@@ -1,12 +1,12 @@
 import styles from "../assets/css/Recipe.module.css";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { deleteRecipe, getRecipe } from "../services/recipesService";
+import { deleteRecipe, getRecipe, likeRecipe, dislikeRecipe } from "../services/recipesService";
 import Spinner from "../components/Spinner";
 import Error from "../components/Error";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import RecipeCard from "../components/RecipeCard";
 import { format } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function Recipe() {
@@ -20,7 +20,7 @@ function Recipe() {
     navigate(-1);
   };
 
-  const { data, isLoading, isError, isSuccess } = useQuery(["allRecipes", slug], getRecipe, {
+  const { data, isLoading, isError, isSuccess } = useQuery(["allRecipes", slug], () => getRecipe(slug), {
     refetchOnWindowFocus: false,
   });
 
@@ -28,13 +28,13 @@ function Recipe() {
     if (user._id !== data.recipe.owner._id) {
       if (data.recipe.alreadyLiked) {
         return (
-          <button className="z-index-up button-style-reset p-0" title="Dislike">
+          <button className="z-index-up button-style-reset p-0" title="Dislike" onClick={handleDislike}>
             <i className="bi bi-hand-thumbs-up-fill icon-button-size icon-button-color"></i>
           </button>
         );
       } else {
         return (
-          <button className="z-index-up button-style-reset p-0" title="Like">
+          <button className="z-index-up button-style-reset p-0" title="Like" onClick={handleLike}>
             <i className="bi bi-hand-thumbs-up icon-button-size icon-button-color"></i>
           </button>
         );
@@ -58,10 +58,11 @@ function Recipe() {
     }
   };
 
-  const mutation = useMutation(deleteRecipe, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("allRecipes");
-      queryClient.invalidateQueries("recentAndPopularAndLikedRecipes");
+  const deleteMutation = useMutation(deleteRecipe, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['allRecipes'], {exact: true});
+      await queryClient.invalidateQueries(['recentAndPopularAndLikedRecipes'], {exact: true});
+      await queryClient.invalidateQueries(['myRecipes'], {exact: true});
       navigate("/recipes", { replace: true });
       toast.success(`Recipe deleted successfully`);
     },
@@ -70,14 +71,54 @@ function Recipe() {
     },
   });
 
+  const likeMutation = useMutation(likeRecipe, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['allRecipes']);
+      await queryClient.invalidateQueries(['recentAndPopularAndLikedRecipes']);
+      await queryClient.invalidateQueries(['myRecipes']);
+      toast.success(`Recipe liked successfully`);
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
+  const dislikeMutation = useMutation(dislikeRecipe, {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['allRecipes']);
+      await queryClient.invalidateQueries(['recentAndPopularAndLikedRecipes']);
+      await queryClient.invalidateQueries(['myRecipes']);
+      toast.success(`Recipe disliked successfully`);
+    },
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   const handleDelete = () => {
-    mutation.mutate(data.recipe._id);
+    deleteMutation.mutate(data.recipe._id);
   };
+
+  const handleLike = () => {
+    likeMutation.mutate(data.recipe._id);
+  };
+
+  const handleDislike = () => {
+    dislikeMutation.mutate(data.recipe._id);
+  };
+
+  useEffect(() => {
+    if(isSuccess) {
+      document.title = `Recipes: ${data.recipe.title} recipe`;
+    } else {
+      document.title = `Recipes: Recipe details`;
+    }
+  }, [isSuccess]);
 
   return (
     <>
-      {isLoading && <Spinner />}
-      {isError && <Error />}
+      {isLoading && <Spinner fullHeight={true} />}
+      {isError && <Error fullHeight={true} />}
       {isSuccess && (
         <>
           <div className={styles.recipeContainer}>

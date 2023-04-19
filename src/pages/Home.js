@@ -6,6 +6,7 @@ import RecipeCard from "../components/RecipeCard";
 import { Link } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import Error from "../components/Error";
+import { useEffect } from "react";
 
 function Home() {
 
@@ -15,6 +16,10 @@ function Home() {
     const { data: recipes, isLoading, isError, isSuccess } = useQuery('recentAndPopularAndLikedRecipes', getRecentAndPopularAndLiked, {
         refetchOnWindowFocus: false
     });
+
+    useEffect(() => {
+        document.title = "Recipes: Home";
+      }, []);
 
     return (
         <>
@@ -33,14 +38,14 @@ function Home() {
                             <Link className="simple-link fw-semibold" to="/recipes">View all</Link>
                         </div>
                         
-                        {recipes.recent?.length > 0 &&
+                        {recipes.recent.length > 0 &&
                         <div className={styles.cards}>
                             {recipes.recent.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe} />
                             </div>)}
                         </div>
                         }
-                        {recipes.recent?.length === 0 && <p className="m-0">
+                        {recipes.recent.length === 0 && <p className="m-0">
                             There aren't any recipes yet.
                         </p>
                         }
@@ -52,14 +57,14 @@ function Home() {
                             <Link className="simple-link fw-semibold" to="/recipes">View all</Link>
                         </div>
 
-                        {recipes.popular?.length > 0 &&
+                        {recipes.popular.length > 0 &&
                         <div className={styles.cards}>
                             {recipes.popular.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe} />
                             </div>)}
                         </div>
                         }
-                        {recipes.popular?.length === 0 && <p className="m-0">
+                        {recipes.popular.length === 0 && <p className="m-0">
                             There aren't any popular recipes yet.
                         </p>
                         }
@@ -71,14 +76,14 @@ function Home() {
                             <Link className="simple-link fw-semibold" to="/recipes">View all</Link>
                         </div>
 
-                        {recipes.liked?.length > 0 &&
+                        {recipes.liked.length > 0 &&
                         <div className={styles.cards}>
                             {recipes.liked.map(recipe => <div key={recipe._id} className={styles.cardContainer}>
                                 <RecipeCard recipe={recipe.recipeId} />
                             </div>)}
                         </div>
                         }
-                        {recipes.liked?.length === 0 && <p className="m-0">
+                        {recipes.liked.length === 0 && <p className="m-0">
                             You haven't liked any recipes yet.
                         </p>
                         }

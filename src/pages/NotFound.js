@@ -1,7 +1,13 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../assets/css/NotFound.module.css";
 
 function NotFound() {
+
+    useEffect(() => {
+        document.title = "Recipes: 404";
+      }, []);
+
     return (
         <div className={styles.notFoundContainer}>
             <h1 className="headline">Oops! Page not found</h1>

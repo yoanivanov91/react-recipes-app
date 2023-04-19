@@ -8,6 +8,7 @@ import * as yup from "yup";
 import { useMutation } from "react-query";
 import { addRecipe } from "../services/recipesService";
 import { useQueryClient } from 'react-query'
+import { useEffect } from "react";
 
 const schema = yup
   .object({
@@ -33,7 +34,7 @@ const queryClient = useQueryClient()
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
     watch
   } = useForm({ resolver: yupResolver(schema) });
@@ -44,9 +45,10 @@ const queryClient = useQueryClient()
   };
 
   const mutation = useMutation(addRecipe, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('allRecipes');
-      queryClient.invalidateQueries('recentAndPopularAndLikedRecipes');
+    onSuccess: async () => {
+      await queryClient.invalidateQueries(['allRecipes'], {exact: true});
+      await queryClient.invalidateQueries(['recentAndPopularAndLikedRecipes'], {exact: true});
+      await queryClient.invalidateQueries(['myRecipes'], {exact: true});
       reset();
       navigate("/recipes", { replace: true});
       toast.success(`Recipe added successfully`);
@@ -60,6 +62,10 @@ const queryClient = useQueryClient()
     const newData = {...data, ingredients: data.ingredients.split(', ')};
     mutation.mutate(newData);
   };
+
+  useEffect(() => {
+    document.title = "Recipes: Add recipe";
+  }, []);
 
   return (
     <>
@@ -184,8 +190,8 @@ const queryClient = useQueryClient()
                   </div>
                 </div>
 
-                <button className="btn my-primary-btn w-100" type="submit">
-                  Add recipe
+                <button className="btn my-primary-btn w-100" type="submit" disabled={isSubmitting}>
+                  {isSubmitting ? "Adding recipe..." : "Add recipe"}
                 </button>
               </form>
             </div>

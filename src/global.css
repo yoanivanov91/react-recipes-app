@@ -217,3 +217,7 @@ body {
   font-weight: bold;
   color: var(--primary) !important;
 }
+
+.fullHeight {
+  height: calc(100vh - 61px - 103px);
+}

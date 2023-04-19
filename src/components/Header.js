@@ -76,11 +76,6 @@ function Header() {
                     </button>
                     <ul className="dropdown-menu dropdown-menu-end">
                       <li>
-                        <NavLink className="dropdown-item" to="/profile" end>
-                          Profile
-                        </NavLink>
-                      </li>
-                      <li>
                         <NavLink className="dropdown-item" to="/my-recipes" end>
                           My recipes
                         </NavLink>
