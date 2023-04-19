@@ -5,7 +5,7 @@ import Error from "../components/Error";
 import { deleteRecipe, getMyRecipes } from "../services/recipesService";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function MyRecipes() {
