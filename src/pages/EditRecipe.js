@@ -209,7 +209,7 @@ function EditRecipe() {
                   </div>
 
                   <button className="btn my-primary-btn w-100" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Editing recipe..." : "Edit recipe"}
+                  {isSubmitting ? "Please wait..." : "Edit recipe"}
                   </button>
                 </form>
               </div>

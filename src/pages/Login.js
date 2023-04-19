@@ -17,7 +17,7 @@ const schema = yup.object({
 
 function Login() {
     const queryClient = useQueryClient();
-    const { register, handleSubmit, formState: { errors }, reset } = useForm({ resolver: yupResolver(schema) });
+    const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm({ resolver: yupResolver(schema) });
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || '/';
@@ -31,7 +31,11 @@ function Login() {
             navigate(from, { replace: true});
             toast.success(`Welcome, ${userData?.firstName}`);
         } catch(err) {
-            toast.error(err.response.data.message);
+            if(err.response?.data?.message) {
+                toast.error(err.response.data.message);
+            } else {
+                toast.error(err.message);
+            }
             reset({password: ''});
         }
     }
@@ -78,8 +82,9 @@ function Login() {
                             <button
                             className="btn my-primary-btn w-100"
                             type="submit"
+                            disabled={isSubmitting}
                             >
-                            Login
+                            {isSubmitting ? "Please wait..." : "Login"}
                             </button>
                         </form>
                         <p className="mb-0 mt-3">

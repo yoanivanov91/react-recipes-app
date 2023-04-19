@@ -27,7 +27,7 @@ export const login = async (email, password) => {
         const response = await users.post('/login', {email, password});
         return response.data;
     } catch(err) {
-        return err;
+        throw err;
     }
 }
 
@@ -37,7 +37,7 @@ export const register = async (data) => {
         const response = await users.post('/register', {email, password, firstName, lastName});
         return response.data;
     } catch(err) {
-        return err;
+        throw err;
     }
 }
 

@@ -191,7 +191,7 @@ const queryClient = useQueryClient()
                 </div>
 
                 <button className="btn my-primary-btn w-100" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Adding recipe..." : "Add recipe"}
+                  {isSubmitting ? "Please wait..." : "Add recipe"}
                 </button>
               </form>
             </div>
